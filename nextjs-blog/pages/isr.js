@@ -1,15 +1,17 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 
-export async function getServerSideProps(){
-  console.log("server side render")
+export async function getStaticProps(){
+  console.log("ISR")
   return {
-    props: {time: new Date().toISOString() }
+    props: {time: new Date().toISOString(),
+    revalidate: 1,
+    }
   }
 }
 
-export default function Home({time}) {
+
+export default function ISR({time}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -19,10 +21,7 @@ export default function Home({time}) {
       <main>
         <h1 className={styles.title}>
         {time}
-        </h1>
-        <h1><Link href="/csr"><p>CSR로</p></Link></h1>
-        <h1><Link href="/ssg"><p>SSG로</p></Link></h1>
-        <h1><Link href="/isr"><p>ISR로</p></Link></h1>
+        </h1>        
       </main>
       <footer>
         <a
